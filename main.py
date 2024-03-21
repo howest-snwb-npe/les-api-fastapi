@@ -114,8 +114,18 @@ def login_token(username: Annotated[HTTPBasicCredentials, Depends(get_current_us
 
 
 @app.get("/status-codes")
-def get_status_codes():
-    return {"Status Codes": status_codes}
+def get_status_codes(q: int | None = None):
+    if q is None:
+        return {"status-codes": status_codes}
+    else:
+        try:
+            return {"status-code": status_codes[q]}
+        except:
+            raise HTTPException(status_code=404, detail="Status code not found")
+
+@app.get("/status-codes")
+def get_status_codes_query(q: int):
+    return {"status-code": status_codes[q]}
 
 @app.get("/network-settings")
 def get_network_settings():
