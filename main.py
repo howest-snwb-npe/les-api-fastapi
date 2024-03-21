@@ -123,10 +123,6 @@ def get_status_codes(q: int | None = None):
         except:
             raise HTTPException(status_code=404, detail="Status code not found")
 
-@app.get("/status-codes")
-def get_status_codes_query(q: int):
-    return {"status-code": status_codes[q]}
-
 @app.get("/network-settings")
 def get_network_settings():
     hostname = socket.gethostname()
